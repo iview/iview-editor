@@ -7,8 +7,8 @@
                     <TabPane label="预览" name="preview"></TabPane>
                     <TabPane label="写摘要" name="summary" v-if="showSummary"></TabPane>
                     <div class="i-editor-upload" slot="extra">
-                        <Upload :config="config" :styles="1" @on-success="handleUploadSuccess"></Upload>
-                        <Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>
+                        <Upload :config="config" :before-upload="beforeUpload" :styles="1" @on-success="handleUploadSuccess"></Upload>
+                        <Upload :config="config" :before-upload="beforeUpload" :styles="6" @on-success="handleImportMd"></Upload>
                         <Button type="text" size="small" class="i-editor-upload-item" @click="showDiff = true">
                             <Tooltip content="全屏编辑" transfer>
                                 <Icon type="md-expand"></Icon>
@@ -29,8 +29,8 @@
                 <TabPane label="预览" name="preview"></TabPane>
                 <TabPane label="写摘要" name="summary" v-if="showSummary"></TabPane>
                 <div class="i-editor-upload" slot="extra">
-                    <Upload :config="config" :styles="1" @on-success="handleUploadSuccess"></Upload>
-                    <Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>
+                    <Upload :config="config" :before-upload="beforeUpload" :styles="1" @on-success="handleUploadSuccess"></Upload>
+                    <Upload :config="config" :before-upload="beforeUpload" :styles="6" @on-success="handleImportMd"></Upload>
                     <Button type="text" size="small" class="i-editor-upload-item" @click="showDiff = true">
                         <Tooltip content="全屏编辑" transfer>
                             <Icon type="md-expand"></Icon>
@@ -46,7 +46,7 @@
         </div>
         <div class="i-editor-md">
             <div class="i-editor-wrapper" v-show="tabType === 'write'" v-if="!showDiff">
-                <Upload :config="config" type="drag" :styles="3" @on-success="handleUploadSuccess" @click.prevent.stop.native>
+                <Upload :config="config" :before-upload="beforeUpload" type="drag" :styles="3" @on-success="handleUploadSuccess" @click.prevent.stop.native>
                     <Input
                             v-model="content"
                             :placeholder="placeholder"
@@ -117,7 +117,7 @@
                 <div slot="header" class="i-editor-fullscreen-header">
                     <p>全屏编辑</p>
                     <div class="i-editor-fullscreen-header-tip">
-                        <Upload :config="config" :styles="1" @on-success="handleUploadSuccess"></Upload>
+                        <Upload :config="config" :before-upload="beforeUpload" :styles="1" @on-success="handleUploadSuccess"></Upload>
                         <Button type="text" size="small" class="i-editor-item" @click="showDiff = false">
                             <Tooltip content="退出全屏" transfer>
                                 <Icon type="md-contract"></Icon>
@@ -128,7 +128,7 @@
                 <div class="i-editor-fullscreen-main">
                     <row :gutter="32">
                         <i-col span="12">
-                            <Upload :config="config" v-if="showDiffEditor" type="drag" :styles="3" @on-success="handleUploadSuccess" @click.prevent.stop.native>
+                            <Upload :config="config" :before-upload="beforeUpload" v-if="showDiffEditor" type="drag" :styles="3" @on-success="handleUploadSuccess" @click.prevent.stop.native>
                                 <Input
                                         v-model="content"
                                         :placeholder="placeholder"
@@ -175,14 +175,17 @@
                 type: Object,
                 default () {
                     return {
-                        action: 'https://up.qbox.me'
+                        action: '/',
+                        maxSize: 5120
                     }
                 }
             },
             value: {
                 type: String,
                 default: ''
-            }
+            },
+            beforeUpload: Function,
+            imgUrl: Function
         },
         data () {
             return {
@@ -209,9 +212,9 @@
             }
         },
         computed: {
-            coverUrl () {
-                return config.filePrefix + this.cover + '/large';
-            }
+//            coverUrl () {
+//                return config.filePrefix + this.cover + '/large';
+//            }
         },
         methods: {
             handleChangeTab (name) {
@@ -233,7 +236,8 @@
                 }
             },
             handleUploadSuccess (res) {
-                const url = config.filePrefix + res.key + '/large';
+//                const url = config.filePrefix + res.key + '/large';
+                const url = this.imgUrl(res);
                 const md_link = `![](${url})`;
 
                 const $content = this.$refs.content.$refs.textarea;

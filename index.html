@@ -18,7 +18,7 @@
 <body>
 <div id="app">
     <div class="app">
-        <i-editor v-model="content" affix :autosize="{minRows: 6}"></i-editor>
+        <i-editor v-model="content" affix :config="config" :before-upload="beforeUpload" :img-url="imgUrl" :autosize="{minRows: 6}"></i-editor>
     </div>
 </div>
     <script type="text/javascript" src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
@@ -28,7 +28,34 @@
         const app = new Vue({
             el: '#app',
             data: {
-                content: 'hello world'
+                content: 'hello world',
+                config: {
+                    uploadForm: {
+                        token: '',
+                        key: ''
+                    },
+                    action: 'https://up.qbox.me',
+                    maxSize: 5120
+                }
+            },
+            methods: {
+                beforeUpload (file) {
+                    // 如果是使用七牛等上传服务，在这里获取 token 后，返回 Promise 来向七牛上传
+                    const p = new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            this.config.uploadForm = {
+                                token: '',  // 从自己服务获取的 token，用于七牛上传
+                                key: ''  // 从自己服务获取的 key，用于七牛上传
+                            };
+                            resolve();
+                        }, 1000);
+                    });
+                    return p;
+                },
+                imgUrl (res) {
+                    // 上传成功后，如果是七牛等服务，需要自己构造完整的图片 url
+                    return 'https://dev-file.iviewui.com/' + res.key + '/large';
+                }
             }
         });
     </script>

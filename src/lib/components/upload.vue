@@ -3,12 +3,12 @@
             :type="type"
             :action="config.action"
             :show-upload-list="false"
-            :data="uploadForm"
+            :data="config.uploadForm"
             :format="['jpg','jpeg','png','gif']"
             :on-format-error="handleFormatError"
-            :max-size="5120"
+            :max-size="config.maxSize"
             :on-exceeded-size="handleMaxSize"
-            :before-upload="beforeUpload"
+            :before-upload="beforeUploadFile"
             :on-success="handleSuccess"
             :on-error="handleError"
             :on-progress="handleProgress">
@@ -28,9 +28,6 @@
     </Upload>
 </template>
 <script>
-//    import $ from '../libs/util';
-//    import config from '../config/config';
-
     export default {
         inject: ['app'],
         props: {
@@ -58,7 +55,8 @@
             },
             // styles 为 5 时使用
             showBtn: Boolean,
-            config: Object
+            config: Object,
+            beforeUpload: Function
         },
         data () {
             return {
@@ -69,63 +67,11 @@
             };
         },
         computed: {
-            coverStyle () {
-                return {
-                    backgroundImage: 'url(' + config.filePrefix + this.cover + '/small' + ')',
-                    height: '104px'
-                }
-            }
+
         },
         methods: {
-            beforeUpload (file) {
-                if (this.styles === 6) {
-                    const file_type = file.type;
-
-                    if (file_type !== 'text/markdown') {
-                        this.$Notice.warning({
-                            title: '文件格式不正确',
-                            desc: '您上传的文件 ' + file.name + ' 格式不符合要求，请上传 .md 格式的文件。',
-                            duration: 6
-                        });
-                        return false;
-                    }
-
-                    const reader = new FileReader();
-                    reader.readAsText(file);
-                    const _this = this;
-                    reader.onload = function () {
-                        _this.$emit('on-success', this.result);
-                    };
-
-                    return false;
-                }
-                const url = this.info ? '/v1/file/getinfotoken' : '/v1/file/gettoken';
-
-                return $.ajax({
-                    method: 'post',
-                    url: url,
-                    data: {
-                        token: this.app.token
-                    }
-                }).then(res => {
-                    const data = res.data;
-
-                    if (data.code !== 200) {
-//                        this.$Message.error(data.msg);
-                        if (data.error_code === 'error_need_update') {
-                            this.app.handleVipTip({
-                                name: '图片上传'
-                            })
-                        }
-                        this.noUploadAccess = true;
-                    } else {
-                        this.noUploadAccess = false;
-                        this.uploadForm = {
-                            token: data.data.token,
-                            key: data.data.key
-                        };
-                    }
-                })
+            beforeUploadFile (file) {
+                return this.beforeUpload(file);
             },
             handleSuccess (res) {
                 this.uploadStatus = 0;
@@ -157,7 +103,7 @@
             handleMaxSize (file) {
                 this.$Notice.warning({
                     title: '文件过大',
-                    desc: '您上传的文件 ' + file.name + ' 体积过大，请上传不超过 5M 的文件。',
+                    desc: '您上传的文件 ' + file.name + ' 体积过大，请上传不超过 ' + this.config.maxSize / 1024 + ' 的文件。',
                     duration: 6
                 });
             },
