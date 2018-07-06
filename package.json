@@ -1,6 +1,6 @@
 {
   "name": "iview-editor",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "markdown editor powered by iView UI",
   "private": false,
   "main": "./dist/iview-editor.js",

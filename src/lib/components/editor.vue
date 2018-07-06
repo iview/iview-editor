@@ -184,8 +184,18 @@
                 type: String,
                 default: ''
             },
-            beforeUpload: Function,
-            imgUrl: Function,
+            beforeUpload: {
+                type: Function,
+                default () {
+                    return true;
+                }
+            },
+            imgUrl: {
+                type: Function,
+                default (res) {
+                    return res;
+                }
+            },
             highlight: {
                 type: Function,
                 default (code) {
