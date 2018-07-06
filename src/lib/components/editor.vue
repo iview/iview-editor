@@ -57,7 +57,7 @@
                 </Upload>
             </div>
             <div class="i-editor-wrapper" v-if="tabType === 'preview'">
-                <Markdown :content="content" ref="markdown">
+                <Markdown :content="content" :highlight="highlight" ref="markdown">
 
                 </Markdown>
             </div>
@@ -139,7 +139,7 @@
                             </Upload>
                         </i-col>
                         <i-col span="12">
-                            <Markdown :content="content"></Markdown>
+                            <Markdown :content="content" :highlight="highlight"></Markdown>
                         </i-col>
                     </row>
                 </div>
@@ -185,7 +185,13 @@
                 default: ''
             },
             beforeUpload: Function,
-            imgUrl: Function
+            imgUrl: Function,
+            highlight: {
+                type: Function,
+                default (code) {
+                    return code;
+                }
+            }
         },
         data () {
             return {

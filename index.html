@@ -18,7 +18,7 @@
 <body>
 <div id="app">
     <div class="app">
-        <i-editor v-model="content" affix :config="config" :before-upload="beforeUpload" :img-url="imgUrl" :autosize="{minRows: 6}"></i-editor>
+        <i-editor v-model="content" affix :highlight="highlight" :config="config" :before-upload="beforeUpload" :img-url="imgUrl" :autosize="{minRows: 6}"></i-editor>
     </div>
 </div>
     <script type="text/javascript" src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
@@ -55,6 +55,9 @@
                 imgUrl (res) {
                     // 上传成功后，如果是七牛等服务，需要自己构造完整的图片 url
                     return 'https://dev-file.iviewui.com/' + res.key + '/large';
+                },
+                highlight (code) {
+                    console.log(code);
                 }
             }
         });

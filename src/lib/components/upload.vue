@@ -29,7 +29,6 @@
 </template>
 <script>
     export default {
-        inject: ['app'],
         props: {
             type: {
                 type: String,
