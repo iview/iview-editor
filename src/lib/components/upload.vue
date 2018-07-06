@@ -13,31 +13,13 @@
             :on-error="handleError"
             :on-progress="handleProgress">
         <slot>
-            <Button type="text" size="small" :disabled="uploadStatus === 1" class="dev-common-upload-item" v-if="styles === 1">
+            <Button type="text" size="small" :disabled="uploadStatus === 1" class="i-editor-upload-item" v-if="styles === 1">
                 <Tooltip content="上传图片" transfer>
                     <Icon type="ios-image"></Icon>
                 </Tooltip>
                 <span v-show="uploadStatus">({{ uploadPercent }}%)</span>
             </Button>
-            <template v-if="styles === 2">
-                <div v-if="cover" :style="coverStyle" class="dev-common-upload-cover"></div>
-                <div style="padding: 30px 0;font-size: 12px" v-else>
-                    <Icon type="ios-image" size="24"></Icon>
-                    <p v-if="uploadStatus">上传中（{{ uploadPercent }}%）</p>
-                    <p v-else>点击或拖拽上传</p>
-                </div>
-            </template>
-            <Button type="primary" ghost icon="ios-camera" :disabled="uploadStatus === 1" v-if="styles === 4">
-                编辑封面图片
-                <span v-show="uploadStatus">({{ uploadPercent }}%)</span>
-            </Button>
-            <div class="dev-user-info-avatar-upload" :class="{show: uploadStatus || showBtn}" v-if="styles === 5">
-                <div>
-                    <Icon type="ios-camera"></Icon>
-                    <p>修改我的头像<span v-show="uploadStatus">({{ uploadPercent }}%)</span></p>
-                </div>
-            </div>
-            <Button type="text" size="small" class="dev-common-upload-item" v-if="styles === 6">
+            <Button type="text" size="small" class="i-editor-upload-item" v-if="styles === 6">
                 <Tooltip content="导入 Markdown 文件" transfer>
                     <Icon type="md-document"></Icon>
                 </Tooltip>

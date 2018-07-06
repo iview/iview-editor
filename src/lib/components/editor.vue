@@ -7,8 +7,8 @@
                     <TabPane label="预览" name="preview"></TabPane>
                     <TabPane label="写摘要" name="summary" v-if="showSummary"></TabPane>
                     <div class="i-editor-upload" slot="extra">
-                        <!--<Upload :config="config" :styles="1" @on-success="handleUploadSuccess"></Upload>-->
-                        <!--<Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>-->
+                        <Upload :config="config" :styles="1" @on-success="handleUploadSuccess"></Upload>
+                        <Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>
                         <Button type="text" size="small" class="i-editor-upload-item" @click="showDiff = true">
                             <Tooltip content="全屏编辑" transfer>
                                 <Icon type="md-expand"></Icon>
@@ -29,8 +29,8 @@
                 <TabPane label="预览" name="preview"></TabPane>
                 <TabPane label="写摘要" name="summary" v-if="showSummary"></TabPane>
                 <div class="i-editor-upload" slot="extra">
-                    <!--<Upload :config="config" :styles="1" @on-success="handleUploadSuccess"></Upload>-->
-                    <!--<Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>-->
+                    <Upload :config="config" :styles="1" @on-success="handleUploadSuccess"></Upload>
+                    <Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>
                     <Button type="text" size="small" class="i-editor-upload-item" @click="showDiff = true">
                         <Tooltip content="全屏编辑" transfer>
                             <Icon type="md-expand"></Icon>
@@ -117,7 +117,7 @@
                 <div slot="header" class="i-editor-fullscreen-header">
                     <p>全屏编辑</p>
                     <div class="i-editor-fullscreen-header-tip">
-                        <!--<Upload :config="config" :styles="1" @on-success="handleUploadSuccess"></Upload>-->
+                        <Upload :config="config" :styles="1" @on-success="handleUploadSuccess"></Upload>
                         <Button type="text" size="small" class="i-editor-item" @click="showDiff = false">
                             <Tooltip content="退出全屏" transfer>
                                 <Icon type="md-contract"></Icon>
@@ -128,7 +128,7 @@
                 <div class="i-editor-fullscreen-main">
                     <row :gutter="32">
                         <i-col span="12">
-                            <!--<Upload :config="config" v-if="showDiffEditor" type="drag" :styles="3" @on-success="handleUploadSuccess" @click.prevent.stop.native>-->
+                            <Upload :config="config" v-if="showDiffEditor" type="drag" :styles="3" @on-success="handleUploadSuccess" @click.prevent.stop.native>
                                 <Input
                                         v-model="content"
                                         :placeholder="placeholder"
@@ -136,7 +136,7 @@
                                         :autosize="autosize"
                                         ref="content"
                                 />
-                            <!--</Upload>-->
+                            </Upload>
                         </i-col>
                         <i-col span="12">
                             <Markdown :content="content"></Markdown>
@@ -178,12 +178,16 @@
                         action: 'https://up.qbox.me'
                     }
                 }
+            },
+            value: {
+                type: String,
+                default: ''
             }
         },
         data () {
             return {
                 tabType: 'write',  // write || preview || summary
-                content: '',
+                content: this.value,
                 showMdTip: false,
                 showDiff: false,
                 showDiffEditor: false,
@@ -196,6 +200,12 @@
                 this.$nextTick(() => {
                     this.showDiffEditor = val;
                 });
+            },
+            value (val) {
+                this.content = val;
+            },
+            content (val) {
+                this.$emit('input', val);
             }
         },
         computed: {

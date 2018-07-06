@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>iView Editor</title>
     <link rel="stylesheet" href="https://file.iviewui.com/3.0/styles/iview.css">
-    <link rel="stylesheet" href="http://localhost:63342/iview-editor/dist/i-editor.css?_ijt=d15igk4qf0l7e9bgoatoob4p1t">
+    <link rel="stylesheet" href="dist/i-editor.css">
     <style>
         #app{
             padding: 100px;
@@ -18,7 +18,7 @@
 <body>
 <div id="app">
     <div class="app">
-        <i-editor affix :autosize="{minRows: 6}"></i-editor>
+        <i-editor v-model="content" affix :autosize="{minRows: 6}"></i-editor>
     </div>
 </div>
     <script type="text/javascript" src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
@@ -26,7 +26,10 @@
     <script type="text/javascript" src="/dist/iview-editor.js"></script>
     <script>
         const app = new Vue({
-            el: '#app'
+            el: '#app',
+            data: {
+                content: 'hello world'
+            }
         });
     </script>
 </body>
