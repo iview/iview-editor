@@ -1,0 +1,4 @@
+{
+    "presets": ["env", "stage-3"],
+    "comments": false
+}
