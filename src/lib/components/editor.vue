@@ -71,7 +71,7 @@
                 />
             </div>
         </div>
-        <Modal title="常用 Markdown 语法" v-model="showMdTip" class="i-editor-md-tip" dragable footer-hide>
+        <Modal title="常用 Markdown 语法" v-model="showMdTip" class="i-editor-md-tip" draggable footer-hide>
             <row>
                 <i-col span="10">
                     <div><strong>Markdown</strong></div>
