@@ -1,6 +1,7 @@
 <template>
     <Upload
             :type="type"
+            :paste="paste"
             :action="config.action"
             :show-upload-list="false"
             :data="config.uploadForm"
@@ -55,7 +56,8 @@
             // styles 为 5 时使用
             showBtn: Boolean,
             config: Object,
-            beforeUpload: Function
+            beforeUpload: Function,
+            paste: Boolean
         },
         data () {
             return {

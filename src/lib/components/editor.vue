@@ -46,7 +46,7 @@
         </div>
         <div class="i-editor-md">
             <div class="i-editor-wrapper" v-show="tabType === 'write'" v-if="!showDiff">
-                <Upload :config="config" :before-upload="beforeUpload" type="drag" :styles="3" @on-success="handleUploadSuccess" @click.prevent.stop.native>
+                <Upload :paste="paste" :config="config" :before-upload="beforeUpload" type="drag" :styles="3" @on-success="handleUploadSuccess" @click.prevent.stop.native>
                     <Input
                             v-model="content"
                             :placeholder="placeholder"
@@ -71,7 +71,7 @@
                 />
             </div>
         </div>
-        <Modal title="常用 Markdown 语法" v-model="showMdTip" class="i-editor-md-tip" draggable footer-hide>
+        <Modal title="常用 Markdown 语法" scrollable width="300" v-model="showMdTip" class="i-editor-md-tip" draggable footer-hide>
             <row>
                 <i-col span="10">
                     <div><strong>Markdown</strong></div>
@@ -128,7 +128,7 @@
                 <div class="i-editor-fullscreen-main">
                     <row :gutter="32">
                         <i-col span="12">
-                            <Upload :config="config" :before-upload="beforeUpload" v-if="showDiffEditor" type="drag" :styles="3" @on-success="handleUploadSuccess" @click.prevent.stop.native>
+                            <Upload :paste="paste" :config="config" :before-upload="beforeUpload" v-if="showDiffEditor" type="drag" :styles="3" @on-success="handleUploadSuccess" @click.prevent.stop.native>
                                 <Input
                                         v-model="content"
                                         :placeholder="placeholder"
@@ -201,6 +201,10 @@
                 default (code) {
                     return code;
                 }
+            },
+            paste: {
+                type: Boolean,
+                default: false
             }
         },
         data () {
