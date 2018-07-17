@@ -72,7 +72,29 @@
         },
         methods: {
             beforeUploadFile (file) {
-                return this.beforeUpload(file);
+                if (this.styles === 6) {
+                    const file_type = file.type;
+
+                    if (file_type !== 'text/markdown') {
+                        this.$Notice.warning({
+                            title: '文件格式不正确',
+                            desc: '您上传的文件 ' + file.name + ' 格式不符合要求，请上传 .md 格式的文件。',
+                            duration: 6
+                        });
+                        return false;
+                    }
+
+                    const reader = new FileReader();
+                    reader.readAsText(file);
+                    const _this = this;
+                    reader.onload = function () {
+                        _this.$emit('on-success', this.result);
+                    };
+
+                    return false;
+                } else {
+                    return this.beforeUpload(file);
+                }
             },
             handleSuccess (res) {
                 this.uploadStatus = 0;

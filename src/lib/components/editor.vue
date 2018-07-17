@@ -8,7 +8,7 @@
                     <TabPane label="写摘要" name="summary" v-if="showSummary"></TabPane>
                     <div class="i-editor-upload" slot="extra">
                         <Upload :config="config" :before-upload="beforeUpload" :styles="1" @on-success="handleUploadSuccess"></Upload>
-                        <Upload :config="config" :before-upload="beforeUpload" :styles="6" @on-success="handleImportMd"></Upload>
+                        <Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>
                         <Button type="text" size="small" class="i-editor-upload-item" @click="showDiff = true">
                             <Tooltip content="全屏编辑" transfer>
                                 <Icon type="md-expand"></Icon>
@@ -30,7 +30,7 @@
                 <TabPane label="写摘要" name="summary" v-if="showSummary"></TabPane>
                 <div class="i-editor-upload" slot="extra">
                     <Upload :config="config" :before-upload="beforeUpload" :styles="1" @on-success="handleUploadSuccess"></Upload>
-                    <Upload :config="config" :before-upload="beforeUpload" :styles="6" @on-success="handleImportMd"></Upload>
+                    <Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>
                     <Button type="text" size="small" class="i-editor-upload-item" @click="showDiff = true">
                         <Tooltip content="全屏编辑" transfer>
                             <Icon type="md-expand"></Icon>
