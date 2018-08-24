@@ -194,8 +194,10 @@
     &-wrapper{
         padding: 0 @common-padding 4px;
         .ivu-upload-drag{
-            border: none;
             overflow: visible;
+            &, &:hover{
+                border: none;
+            }
         }
         .ivu-upload-dragOver .ivu-input{
             border: 1px dashed #2d8cf0;
@@ -242,7 +244,9 @@
         &-main{
             margin-top: 30px;
             .ivu-upload-drag{
-                border: none;
+                &, &:hover{
+                    border: none;
+                }
             }
             .ivu-input{
                 border: none;
