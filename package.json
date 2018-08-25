@@ -24,6 +24,7 @@
     "iview": "^2.11.0",
     "marked": "^0.3.19",
     "marked-sanitizer-github": "^1.0.0",
+    "qs": "^6.5.2",
     "vue": "^2.5.16"
   },
   "devDependencies": {

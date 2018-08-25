@@ -14,6 +14,11 @@
                                 <Icon type="md-expand"></Icon>
                             </Tooltip>
                         </Button>
+                        <Button type="text" size="small" class="i-editor-upload-item" @click="showInsert = true">
+                            <Tooltip :content="insertTitle" transfer>
+                                <Icon type="md-code"></Icon>
+                            </Tooltip>
+                        </Button>
                         <Button type="text" size="small" class="i-editor-upload-item" @click="showMdTip = true">
                             <Tooltip content="Markdown 语法提示" transfer>
                                 <Icon type="logo-markdown"></Icon>
@@ -34,6 +39,11 @@
                     <Button type="text" size="small" class="i-editor-upload-item" @click="showDiff = true">
                         <Tooltip content="全屏编辑" transfer>
                             <Icon type="md-expand"></Icon>
+                        </Tooltip>
+                    </Button>
+                    <Button type="text" size="small" class="i-editor-upload-item" @click="showInsert = true">
+                        <Tooltip :content="insertTitle" transfer>
+                            <Icon type="md-code"></Icon>
                         </Tooltip>
                     </Button>
                     <Button type="text" size="small" class="i-editor-upload-item" @click="showMdTip = true">
@@ -104,6 +114,13 @@
             </row>
             <a href="http://wowubuntu.com/markdown/" target="_blank">更多语法</a>
         </Modal>
+        <Modal :title="insertTitle" v-model="showInsert" draggable @on-ok="handleInsert">
+            <Tabs v-model="insertTabType">
+                <TabPane label="Youtube 影片" name="youtube">
+                    <Input v-model="insertData.youtube.url" :placeholder="insertData.youtube.placeholder" />
+                </TabPane>
+            </Tabs>
+        </Modal>
         <Modal
                 :closable="false"
                 :mask-closable="false"
@@ -139,7 +156,7 @@
                             </Upload>
                         </i-col>
                         <i-col span="12">
-                            <Markdown :content="content" :highlight="highlight"></Markdown>
+                            <Markdown :content="content" :highlight="highlight" :whitelist="whitelist"></Markdown>
                         </i-col>
                     </row>
                 </div>
@@ -152,6 +169,7 @@
     import insertText from '../util/insertText';
     import Upload from './upload.vue';
     import Markdown from './md.vue';
+    import qs from 'qs';
 
     export default {
         name: 'iEditor',
@@ -161,9 +179,17 @@
             offsetTop: Number,
             placeholder: String,
             autosize: Object,
+            i18n: {
+                type: Boolean,
+                default: false
+            },
             writeName: {
                 type: String,
                 default: '内容'
+            },
+            insertTitle: {
+                type: String,
+                default: '插入程式码'
             },
             changeScroll: Boolean,
             cover: String,
@@ -209,17 +235,26 @@
             whitelist: {
                 type: Array,
                 default () {
-                    return [];
+                    return ['iframe'];
                 }
             }
         },
         data () {
             return {
                 tabType: 'write',  // write || preview || summary
+                insertTabType: 'youtube',
                 content: this.value,
                 showMdTip: false,
                 showDiff: false,
                 showDiffEditor: false,
+                showInsert: false,
+                insertData: {
+                    youtube: {
+                        url: '',
+                        placeholder: 'Youtube 影片网址',
+                        template: `<iframe width="640" height="360" src="%s" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
+                    }
+                },
                 summary: ''
             };
         },
@@ -287,10 +322,56 @@
                     this.content = result;
                 }
             },
+            handleInsert () {
+                let result
+
+                if (this.insertTabType === 'youtube') {
+                    const y = this.insertData.youtube;
+                    const youtubeUrl = this.youtubeUrlFormet(y.url);
+                    if (youtubeUrl) {
+                        result = y.template.replace(/%s/g, youtubeUrl);
+                    }
+                }
+
+                if (result) {
+                    const $content = this.$refs.content.$refs.textarea;
+                    insertText($content, result);
+
+                    this.$nextTick(() => {
+                        this.content = $content.value;  // 不加此行，改变了 value 不会重绘，原数据则没有改变
+                        this.$refs.content.focus();
+                    });
+                }
+            },
             focus () {
                 if (this.$refs.content) {
                     this.$refs.content.focus();
                 }
+            },
+            youtubeUrlFormet (url) {
+                const outputUrlTemplate = 'https://www.youtube.com/embed/%s';
+                const urlPrefix = url.replace(/(http)(:\/\/)/, '$1s$2').match(/^https\:\/\/[\w-.]*\//);
+
+                if (urlPrefix) {
+                    let outputUrlStr = ''
+                    const ytDomain = 'https://www.youtube.com/';
+                    const ytDomainMin = 'https://youtu.be/';
+
+                    if (urlPrefix[0] === ytDomain) {
+                        let params = {
+                            rel: 0,
+                            modestbranding: 1
+                        };
+                        const isParams = Boolean(Object.keys(params).length)
+                        const ytQs = qs.parse(url.replace(/[^\?]*\?/, ''));
+                        ytQs.list ? params.list = ytQs.list : false;
+                        outputUrlStr = ytQs.v + (isParams ? `?${qs.stringify(params)}` : '');
+                    } else if (urlPrefix[0] === ytDomainMin) {
+                        outputUrlStr = url.replace(urlPrefix[0], '').replace(/\?.*/, '');
+                    }
+                    return outputUrlTemplate.replace(/%s/g, outputUrlStr);
+                }
+                return null;
             }
         }
     }
