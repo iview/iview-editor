@@ -3,24 +3,24 @@
         <Affix :offset-top="offsetTop" v-if="affix">
             <div class="i-editor-tabs">
                 <Tabs v-model="tabType" :animated="false" @on-click="handleChangeTab">
-                    <TabPane :label="writeName" name="write"></TabPane>
-                    <TabPane label="预览" name="preview"></TabPane>
-                    <TabPane label="写摘要" name="summary" v-if="showSummary"></TabPane>
+                    <TabPane :label="t('write', writeName)" name="write"></TabPane>
+                    <TabPane :label="t('preview', '预览')" name="preview"></TabPane>
+                    <TabPane :label="t('summary', '写摘要')" name="summary" v-if="showSummary"></TabPane>
                     <div class="i-editor-upload" slot="extra">
                         <Upload :config="config" :before-upload="beforeUpload" :styles="1" @on-success="handleUploadSuccess"></Upload>
                         <Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>
                         <Button type="text" size="small" class="i-editor-upload-item" @click="showDiff = true">
-                            <Tooltip content="全屏编辑" transfer>
+                            <Tooltip :content="t('fullscreen', '全屏编辑')" transfer>
                                 <Icon type="md-expand"></Icon>
                             </Tooltip>
                         </Button>
                         <Button type="text" size="small" class="i-editor-upload-item" @click="showInsert = true">
-                            <Tooltip :content="insertTitle" transfer>
+                            <Tooltip :content="t('insert-code', '插入程式码')" transfer>
                                 <Icon type="md-code"></Icon>
                             </Tooltip>
                         </Button>
                         <Button type="text" size="small" class="i-editor-upload-item" @click="showMdTip = true">
-                            <Tooltip content="Markdown 语法提示" transfer>
+                            <Tooltip :content="t('markdown-tip', 'Markdown 语法提示')" transfer>
                                 <Icon type="logo-markdown"></Icon>
                             </Tooltip>
                         </Button>
@@ -30,24 +30,24 @@
         </Affix>
         <div class="i-editor-tabs" v-else>
             <Tabs v-model="tabType" :animated="false" @on-click="handleChangeTab">
-                <TabPane :label="writeName" name="write"></TabPane>
-                <TabPane label="预览" name="preview"></TabPane>
-                <TabPane label="写摘要" name="summary" v-if="showSummary"></TabPane>
+                <TabPane :label="t('write', writeName)" name="write"></TabPane>
+                <TabPane :label="t('preview', '预览')" name="preview"></TabPane>
+                <TabPane :label="t('summary', '写摘要')" name="summary" v-if="showSummary"></TabPane>
                 <div class="i-editor-upload" slot="extra">
                     <Upload :config="config" :before-upload="beforeUpload" :styles="1" @on-success="handleUploadSuccess"></Upload>
                     <Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>
                     <Button type="text" size="small" class="i-editor-upload-item" @click="showDiff = true">
-                        <Tooltip content="全屏编辑" transfer>
+                        <Tooltip :content="t('fullscreen', '全屏编辑')" transfer>
                             <Icon type="md-expand"></Icon>
                         </Tooltip>
                     </Button>
                     <Button type="text" size="small" class="i-editor-upload-item" @click="showInsert = true">
-                        <Tooltip :content="insertTitle" transfer>
+                        <Tooltip :content="t('insert-code', '插入程式码')" transfer>
                             <Icon type="md-code"></Icon>
                         </Tooltip>
                     </Button>
                     <Button type="text" size="small" class="i-editor-upload-item" @click="showMdTip = true">
-                        <Tooltip content="Markdown 语法提示" transfer>
+                        <Tooltip :content="t('markdown-tip', 'Markdown 语法提示')" transfer>
                             <Icon type="logo-markdown"></Icon>
                         </Tooltip>
                     </Button>
@@ -74,50 +74,68 @@
             <div class="i-editor-wrapper" v-if="tabType === 'summary'">
                 <Input
                         v-model="summary"
-                        placeholder="摘要会在文章列表显示，只支持纯文本。"
+                        :placeholder="t('summary-placeholder', '摘要会在文章列表显示，只支持纯文本。')"
                         type="textarea"
                         :autosize="{minRows: 6}"
                         ref="summary"
                 />
             </div>
         </div>
-        <Modal title="常用 Markdown 语法" scrollable width="300" v-model="showMdTip" class="i-editor-md-tip" draggable footer-hide>
+        <Modal :title="t('markdown-basic', '常用 Markdown 语法')" scrollable width="300" v-model="showMdTip" class="i-editor-md-tip" draggable footer-hide>
             <row>
-                <i-col span="10">
-                    <div><strong>Markdown</strong></div>
-                    <div># 标题</div>
-                    <div>## 标题</div>
-                    <div>**粗体**</div>
-                    <div>*斜体*</div>
-                    <div>[描述](http://)</div>
-                    <div>`code`</div>
-                    <div>```code```</div>
-                    <div>![alt](http://)</div>
-                    <div>- item</div>
-                    <div>1. item</div>
-                    <div>> 引用内容</div>
-                </i-col>
-                <i-col span="14">
-                    <div><strong>结果</strong></div>
-                    <div>H1</div>
-                    <div>H2</div>
-                    <div><strong>粗体</strong></div>
-                    <div><i>斜体</i></div>
-                    <div><a href="javascript:void(0)">链接</a></div>
-                    <div><code>Inline Code</code></div>
-                    <div><code>Code</code></div>
-                    <div>图片</div>
-                    <div><ul><li>无序列表</li></ul></div>
-                    <div><ol><li>有序列表</li></ol></div>
-                    <div><blockquote>引用内容</blockquote></div>
-                </i-col>
+                <i-col span="10"><strong>Markdown</strong></i-col>
+                <i-col span="14"><strong>结果</strong></i-col>
             </row>
-            <a href="http://wowubuntu.com/markdown/" target="_blank">更多语法</a>
+            <row>
+                <i-col span="10"># {{ t('header', '标题') }}</i-col>
+                <i-col span="14"><h1>{{ t('header', '标题') }}</h1></i-col>
+            </row>
+            <row>
+                <i-col span="10">## {{ t('header', '标题') }}</i-col>
+                <i-col span="14"><h2>{{ t('header', '标题') }}</h2></i-col>
+            </row>
+            <row>
+                <i-col span="10">**{{ t('bold', '粗体') }}**</i-col>
+                <i-col span="14"><strong>{{ t('bold', '粗体') }}</strong></i-col>
+            </row>
+            <row>
+                <i-col span="10">*{{ t('oblique', '斜体') }}*</i-col>
+                <i-col span="14"><i>{{ t('oblique', '斜体') }}</i></i-col>
+            </row>
+            <row>
+                <i-col span="10">[{{ t('description', '描述') }}](http://)</i-col>
+                <i-col span="14"><a href="javascript:void(0)">{{ t('a-link', '链接') }}</a></i-col>
+            </row>
+            <row>
+                <i-col span="10">`{{ t('inline-code', 'Inline code') }}`</i-col>
+                <i-col span="14"><code>{{ t('inline-code', 'Inline code') }}</code></i-col>
+            </row>
+            <row>
+                <i-col span="10">```{{ t('block-code', 'Block code') }}```</i-col>
+                <i-col span="14"><code>{{ t('block-code', 'Block code') }}</code></i-col>
+            </row>
+            <row>
+                <i-col span="10">![{{ t('a-link', '链接') }}](http://)</i-col>
+                <i-col span="14">{{ t('img', '图片') }}</i-col>
+            </row>
+            <row>
+                <i-col span="10">* {{ t('ul', '无序列表') }}</i-col>
+                <i-col span="14"><ul><li>{{ t('ul', '无序列表') }}</li></ul></i-col>
+            </row>
+            <row>
+                <i-col span="10">1. {{ t('ol', '有序列表') }}</i-col>
+                <i-col span="14"><ol><li>{{ t('ol', '有序列表') }}</li></ol></i-col>
+            </row>
+            <row>
+                <i-col span="10">> {{ t('blockquote', '引用内容') }}</i-col>
+                <i-col span="14"><blockquote>{{ t('blockquote', '引用内容') }}</blockquote></i-col>
+            </row>
+            <a href="http://wowubuntu.com/markdown/" target="_blank">{{ t('markdown-more', '更多语法') }}</a>
         </Modal>
-        <Modal :title="insertTitle" v-model="showInsert" draggable @on-ok="handleInsert">
+        <Modal :title="t('insert-code', '插入程式码')" v-model="showInsert" draggable @on-ok="handleInsert">
             <Tabs v-model="insertTabType">
-                <TabPane label="Youtube 影片" name="youtube">
-                    <Input v-model="insertData.youtube.url" :placeholder="insertData.youtube.placeholder" />
+                <TabPane :label="t('youtube-video', 'Youtube 影片')" name="youtube">
+                    <Input v-model="insertData.youtube.url" :placeholder="t('youtube-placeholder', 'Youtube 影片网址')" />
                 </TabPane>
             </Tabs>
         </Modal>
@@ -132,11 +150,11 @@
         >
             <div v-if="showDiff" class="i-editor-fullscreen-container">
                 <div slot="header" class="i-editor-fullscreen-header">
-                    <p>全屏编辑</p>
+                    <p>{{ t('fullscreen', '全屏编辑') }}</p>
                     <div class="i-editor-fullscreen-header-tip">
                         <Upload :config="config" :before-upload="beforeUpload" :styles="1" @on-success="handleUploadSuccess"></Upload>
                         <Button type="text" size="small" class="i-editor-item" @click="showDiff = false">
-                            <Tooltip content="退出全屏" transfer>
+                            <Tooltip :content="t('fullscreen-exit', '退出全屏')" transfer>
                                 <Icon type="md-contract"></Icon>
                             </Tooltip>
                         </Button>
@@ -183,13 +201,13 @@
                 type: Boolean,
                 default: false
             },
+            i18nPrefix: {
+                type: String,
+                default: 'i-ed-'
+            },
             writeName: {
                 type: String,
                 default: '内容'
-            },
-            insertTitle: {
-                type: String,
-                default: '插入程式码'
             },
             changeScroll: Boolean,
             cover: String,
@@ -251,8 +269,7 @@
                 insertData: {
                     youtube: {
                         url: '',
-                        placeholder: 'Youtube 影片网址',
-                        template: `<iframe width="640" height="360" src="%s" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
+                        template: '<iframe width="640" height="360" src="%s" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
                     }
                 },
                 summary: ''
@@ -278,6 +295,9 @@
 //            }
         },
         methods: {
+            t (translate, defaultText) {
+                return this.i18n ? this.$t(`${this.i18nPrefix}${translate}`) : defaultText;
+            },
             handleChangeTab (name) {
                 if (name === 'write') {
                     this.$nextTick(() => {
@@ -312,8 +332,8 @@
             handleImportMd (result) {
                 if (this.content !== '') {
                     this.$Modal.confirm({
-                        title: '导入确认',
-                        content: '导入后将覆盖您已经输入的内容，是否继续导入？',
+                        title: this.t('import-md-title', '导入确认'),
+                        content: this.t('import-md-content', '导入后将覆盖您已经输入的内容，是否继续导入？'),
                         onOk: () => {
                             this.content = result;
                         }
