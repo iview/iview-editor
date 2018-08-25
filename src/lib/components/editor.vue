@@ -57,7 +57,7 @@
                 </Upload>
             </div>
             <div class="i-editor-wrapper" v-if="tabType === 'preview'">
-                <Markdown :content="content" :highlight="highlight" ref="markdown">
+                <Markdown :content="content" :highlight="highlight" :whitelist="whitelist" ref="markdown">
 
                 </Markdown>
             </div>
@@ -205,6 +205,12 @@
             paste: {
                 type: Boolean,
                 default: false
+            },
+            whitelist: {
+                type: Array,
+                default () {
+                    return [];
+                }
             }
         },
         data () {

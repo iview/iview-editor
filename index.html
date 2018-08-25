@@ -23,12 +23,13 @@
 </div>
     <script type="text/javascript" src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
     <script type="text/javascript" src="https://file.iviewui.com/3.0.0/iview.min.js"></script>
-    <script type="text/javascript" src="/dist/iview-editor.js"></script>
+    <script type="text/javascript" src="dist/iview-editor.js"></script>
     <script>
         const app = new Vue({
             el: '#app',
             data: {
-                content: 'hello world',
+                content: `hello world
+<button>測試</button>`,
                 config: {
                     uploadForm: {
                         token: '',

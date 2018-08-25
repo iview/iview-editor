@@ -6,13 +6,16 @@
 </template>
 <script>
     import marked from 'marked';
+    import SanitizeState from 'marked-sanitizer-github';
+    import { SanitizeConfig, SanitizeWhitelist } from 'marked-sanitizer-github';
 //    import hljs from 'highlightjs/highlight.pack.js';
     import pinyinUtil from '../util/pinyin/pinyinUtil';
 
     export default {
         props: {
             content: String,
-            highlight: Function
+            highlight: Function,
+            whitelist: Array
         },
         data () {
             return {
@@ -33,6 +36,16 @@
                     return `<h${level} id="${id}">${text}</h${level}>`;
                 };
 
+                // HTML tags filter
+                const state = new SanitizeState()
+                const config = new SanitizeConfig()
+                const whitelist = new SanitizeWhitelist()
+                this.whitelist.forEach(v => {
+                    whitelist.ELEMENTS.add(v)
+                })
+                config.whitelist = whitelist
+                state.config = config
+
                 const _this = this;
 
                 this.html = marked(this.content, {
@@ -41,7 +54,9 @@
                     highlight (code) {
                         return _this.highlight(code);
                     },
-                    renderer: renderer
+                    renderer: renderer,
+                    sanitize: true,
+                    sanitizer: state.getSanitizer()
                 });
             }
         },

@@ -20,10 +20,11 @@
   },
   "homepage": "https://github.com/iview/iview-editor#readme",
   "dependencies": {
-    "iview": "^2.11.0",
-    "vue": "^2.5.16",
     "highlightjs": "^9.10.0",
-    "marked": "^0.3.19"
+    "iview": "^2.11.0",
+    "marked": "^0.3.19",
+    "marked-sanitizer-github": "^1.0.0",
+    "vue": "^2.5.16"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
@@ -31,22 +32,22 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "babel-preset-stage-3": "^6.24.1",
-    "extract-text-webpack-plugin": "^3.0.2",
     "cross-env": "^5.0.5",
-    "less": "^2.7.1",
-    "less-loader": "^2.2.3",
-    "style-loader": "^0.19.1",
     "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.4",
-    "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.4",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.9.3",
     "gulp-less": "^4.0.0",
     "gulp-rename": "^1.2.2",
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "style-loader": "^0.19.1",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
   },
   "engines": {
     "node": ">= 4.0.0",
