@@ -23,6 +23,14 @@ export default {
   'i-ed-insert-code': '插入程式码',
   'i-ed-youtube-video': 'Youtube 影片',
   'i-ed-youtube-placeholder': 'Youtube 影片网址',
+  'i-ed-import-md-document': '导入 Markdown 文件',
   'i-ed-import-md-title': '导入确认',
-  'i-ed-import-md-content': '导入后将覆盖您已经输入的内容，是否继续导入？'
+  'i-ed-import-md-content': '导入后将覆盖您已经输入的内容，是否继续导入？',
+  'i-ed-upload-img': '上传图片',
+  'i-ed-file-format-incorrect': '文件格式不正确',
+  'i-ed-file-format-incorrect-md-content': '您上传的文件 {fileName} 格式不符合要求，请上传 .md 格式的文件。',
+  'i-ed-file-format-incorrect-img-content': '您上传的文件 {fileName} 格式不符合要求，请上传 jpg、png、gif 格式的文件。',
+  'i-ed-file-large': '文件过大',
+  'i-ed-file-large-content': '您上传的文件 {fileName} 体积过大，请上传不超过 {maxSize} 的文件。',
+  'i-ed-upload-loading': '图片上传中（{uploadPercent}%）'
 }
