@@ -1,5 +1,5 @@
 <template>
-    <Modal :title="t('markdown-basic', '常用 Markdown 语法')" scrollable width="300" v-model="value" class="i-editor-md-tip" draggable footer-hide @on-visible-change="onVisibleChange">
+    <Modal :title="t('markdown-basic', '常用 Markdown 语法')" scrollable width="300" :value="value" class="i-editor-md-tip" draggable footer-hide @on-visible-change="onVisibleChange">
         <row>
             <i-col span="10"><strong>Markdown</strong></i-col>
             <i-col span="14"><strong>结果</strong></i-col>

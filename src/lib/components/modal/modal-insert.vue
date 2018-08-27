@@ -1,5 +1,5 @@
 <template>
-    <Modal :title="t('insert-code', '插入程式码')" v-model="value" draggable @on-ok="handleInsert" @on-cancel="handleCancel" @on-visible-change="onVisibleChange">
+    <Modal :title="t('insert-code', '插入程式码')" :value="value" draggable @on-ok="handleInsert" @on-cancel="handleCancel" @on-visible-change="onVisibleChange">
         <Tabs v-model="insertTabType">
             <TabPane :label="t('youtube-video', 'Youtube 影片')" name="youtube">
                 <Input v-model="insertData.youtube.url" :placeholder="t('youtube-placeholder', 'Youtube 影片网址')" />
