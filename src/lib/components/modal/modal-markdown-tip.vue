@@ -6,11 +6,11 @@
         </row>
         <row>
             <i-col span="10"># {{ t('header', '标题') }}</i-col>
-            <i-col span="14"><h1>{{ t('header', '标题') }}</h1></i-col>
+            <i-col span="14"><h1 style="margin: 0">{{ t('header', '标题') }}</h1></i-col>
         </row>
         <row>
             <i-col span="10">## {{ t('header', '标题') }}</i-col>
-            <i-col span="14"><h2>{{ t('header', '标题') }}</h2></i-col>
+            <i-col span="14"><h2 style="margin: 0">{{ t('header', '标题') }}</h2></i-col>
         </row>
         <row>
             <i-col span="10">**{{ t('bold', '粗体') }}**</i-col>
