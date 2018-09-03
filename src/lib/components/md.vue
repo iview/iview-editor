@@ -1,7 +1,8 @@
 <template>
     <div class="i-editor-md">
         <slot></slot>
-        <div class="dev-md-content" v-html="html" ref="content"></div>
+        <div v-if="!compileRenderer" class="dev-md-content" v-html="html" ref="content"></div>
+        <component v-else class="dev-md-content" :is="renderedMd" ref="content"></component>
     </div>
 </template>
 <script>
@@ -29,8 +30,12 @@ export default {
         renderer: {
             type: Object,
             default () {
-                return {}
+                return {};
             }
+        },
+        compileRenderer: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -41,6 +46,15 @@ export default {
     watch: {
         content () {
             this.renderMd();
+        }
+    },
+    computed: {
+        renderedMd () {
+            let template = `<div>${this.html}</div>`;
+            return {
+                name: 'RenderedMd',
+                template
+            }
         }
     },
     methods: {
