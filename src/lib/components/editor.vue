@@ -49,7 +49,7 @@
                 </Upload>
             </div>
             <div class="i-editor-wrapper" v-if="tabType === 'preview'">
-                <Markdown :content="content" :highlight="highlight" :whitelist="whitelist" :renderer="renderer" ref="markdown">
+                <Markdown :content="content" :highlight="highlight" :whitelist="whitelist" :attrs="attrs" :renderer="renderer" ref="markdown">
                 </Markdown>
             </div>
             <div class="i-editor-wrapper" v-if="tabType === 'summary'">
@@ -98,7 +98,7 @@
                             </Upload>
                         </i-col>
                         <i-col span="12">
-                            <Markdown :content="content" :highlight="highlight" :whitelist="whitelist" :renderer="renderer"></Markdown>
+                            <Markdown :content="content" :highlight="highlight" :whitelist="whitelist" :attrs="attrs" :renderer="renderer"></Markdown>
                         </i-col>
                     </row>
                 </div>
@@ -185,6 +185,12 @@ export default {
             }
         },
         whitelist: {
+            type: Object,
+            default () {
+                return {};
+            }
+        },
+        attrs: {
             type: Array,
             default () {
                 return ['iframe'];

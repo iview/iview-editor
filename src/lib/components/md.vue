@@ -27,6 +27,12 @@ export default {
                 return [];
             }
         },
+        attrs: {
+            type: Object,
+            default () {
+                return {};
+            }
+        },
         renderer: {
             type: Object,
             default () {
@@ -73,6 +79,7 @@ export default {
             this.whitelist.forEach(v => {
                 whitelist.ELEMENTS.add(v)
             })
+            whitelist.ATTRIBUTES = Object.assign({}, whitelist.ATTRIBUTES, this.attrs)
             config.whitelist = whitelist
             state.config = config
 
