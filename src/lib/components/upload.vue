@@ -3,6 +3,7 @@
             :type="type"
             :paste="paste"
             :action="config.action"
+            :headers="config.headers"
             :show-upload-list="false"
             :data="config.uploadForm"
             :format="['jpg','jpeg','png','gif']"
