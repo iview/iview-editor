@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iview/leeblog-iview-editor.git"
+    "url": "git+https://github.com/haitaodesign/leeblog-iview-editor.git"
   },
   "author": "Aresn",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/iview/leeblog-iview-editor/issues"
+    "url": "https://github.com/haitaodesign/leeblog-iview-editor/issues"
   },
-  "homepage": "https://github.com/iview/leeblog-iview-editor#readme",
+  "homepage": "https://github.com/haitaodesign/leeblog-iview-editor#readme",
   "dependencies": {
     "iview": "^2.11.0",
     "vue": "^2.5.16",
