@@ -11,11 +11,11 @@ npm install iview-editor --save
 ``` js
 import Vue from 'vue';
 import iView from 'iview';
-import iEditor from 'iview-editor';
+import iEditor from 'leeblog-iview-editor';
 
 // 使用 css
 import 'iview/dist/styles/iview.css';
-import 'iview-editor/dist/i-editor.css';
+import 'iview-editor/dist/leeblog-iview-editor.css';
 
 // 使用插件
 Vue.use(iView);
@@ -49,7 +49,8 @@ Vue.use(iEditor);
         <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview-editor/dist/iview-editor.css">
         <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
         <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
-        <script type="text/javascript" src="http://unpkg.com/iview-editor/dist/iview-editor.js"></script>
+        <!-- 暂时无法使用 -->
+        <script type="text/javascript" src="http://unpkg.com/iview-editor/dist/leeblog-iview-editor.js"></script>
     </head>
     <body>
         <div id="app">
@@ -66,3 +67,5 @@ Vue.use(iEditor);
     </body>
 </html>
 ```
+## 注意
+此版本是对iview-editor改造，由于自己需要添加一些功能，等原作者发布新版本太慢，所以自行修改发布了另外一个版本。
