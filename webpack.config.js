@@ -7,7 +7,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
-        filename: 'iview-editor.js',
+        filename: 'leeblog-iview-editor.js',
         library: 'iviewEditor',
         libraryTarget: 'umd',
         umdNamedDefine: true

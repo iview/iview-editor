@@ -1,9 +1,9 @@
 {
-  "name": "iview-editor",
-  "version": "1.1.1",
+  "name": "leeblog-iview-editor",
+  "version": "1.0.0",
   "description": "markdown editor powered by iView UI",
   "private": false,
-  "main": "./dist/iview-editor.js",
+  "main": "./dist/leeblog-iview-editor.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iview/iview-editor.git"
+    "url": "git+https://github.com/haitaodesign/leeblog-iview-editor.git"
   },
-  "author": "Aresn",
+  "author": "leehaitao",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/iview/iview-editor/issues"
+    "url": "https://github.com/haitaodesign/leeblog-iview-editor/issues"
   },
-  "homepage": "https://github.com/iview/iview-editor#readme",
+  "homepage": "https://github.com/haitaodesign/leeblog-iview-editor#readme",
   "dependencies": {
     "iview": "^2.11.0",
     "vue": "^2.5.16",

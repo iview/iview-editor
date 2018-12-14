@@ -176,7 +176,8 @@
                 default () {
                     return {
                         action: '/',
-                        maxSize: 5120
+                        maxSize: 5120,
+                        headers: {}
                     }
                 }
             },
